@@ -1,54 +1,67 @@
 package com.sc2.hackathome.customer;
 
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @RestController
 public class CustomerController {
 
-    private CustomerRepository repository;
+    private final CustomerRepository repository;
 
-    @GetMapping("/elderly/auth")
-    public Customer getElderly(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass) {
-        //todo return if email and password exist in database
-        //repository.findByName(email);
-
-        return new Customer(1);
+    public CustomerController(CustomerRepository repository) {
+        this.repository = repository;
     }
 
-    @GetMapping("/elderly/signin")
-    public Customer signinElderly(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass,
-                                  @RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
-                                  @RequestParam(value = "id") Long id) {
-        //todo check email not exist(or set email unique in database)
-        //todo save data new deliveryman to database
-        return new Customer(1);
+    @GetMapping("/customers")
+    List<Customer> all() {
+        return repository.findAll();
     }
 
-    @GetMapping("/elderly/addshippinglists")
-    public Customer addShippingList(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass) {
-        //todo replace elderly with shipping list
-        //todo return if email and password exist in database
-        //repository.findByName(email);
-
-        return new Customer(1);
+    @PostMapping("/customers")
+    Customer newCustomer(@RequestBody Customer customer) {
+        return repository.save(customer);
     }
 
-    @GetMapping("/elderly/getallshippinglists")
-    public Customer getAllShippingLists(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass) {
-        //todo auth user
-        //todo return all shipping list foreigned key with deliveryman
-        return new Customer(1);//return shippinglist
+    // Single item
+
+    @GetMapping("/customers/{id}")
+    Customer one(@PathVariable Long id) {
+
+        return repository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException(id));
     }
 
-    @GetMapping("/elderly/getfromidshippinglist")
-    public Customer getFromIdShippingList(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass,
-                                          @RequestParam(value = "id") Long id) {
-        //todo auth user
-        //todo return shipping list foreigned key with deliveryman by ID(shippinglist)
-        return new Customer(1);//return shippinglist
+    //    @PutMapping("/customers/{id}")
+//    Customer replaceCustomer(@RequestBody Customer newCustomer, @PathVariable Long id) {
+//
+//        return repository.findById(id)
+//                .map(shippingList -> {
+//                    shippingList.setShippingItems(newCustomer.getShippingItems());
+//                    return repository.save(shippingList);
+//                })
+//                .orElseGet(() -> {
+//                    newCustomer.setId(id);
+//                    return repository.save(newCustomer);
+//                });
+//    }
+
+    @PutMapping("/customers/{id}")
+    Customer replaceCustomer(@RequestParam(value = "address", defaultValue = "") String newAddress, @PathVariable Long id) {
+
+        return repository.findById(id)
+                .map(customer -> {
+                    customer.setAddress(newAddress);
+                    return repository.save(customer);
+                })
+                .orElseThrow(() -> {
+                    return new CustomerNotFoundException(id);
+                });
+    }
+
+    @DeleteMapping("/customers/{id}")
+    void deleteCustomer(@PathVariable Long id) {
+        repository.deleteById(id);
     }
 
 }

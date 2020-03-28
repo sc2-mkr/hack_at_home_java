@@ -23,15 +23,4 @@ public class Customer {
     @Column(name = "address")
     @NotNull
     private String address;
-
-    public Customer(long id) {
-        this.id = id;
-    }
-
-    public Customer(long id, String name, String surname, String address) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.address = address;
-    }
 }
