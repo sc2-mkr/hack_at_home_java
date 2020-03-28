@@ -1,5 +1,6 @@
 package com.sc2.hackathome.customer;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class CustomerController {
     }
 
     @PostMapping("/customers")
+    @ResponseStatus(HttpStatus.CREATED)
     Customer newCustomer(@RequestBody Customer customer) {
         return repository.save(customer);
     }
@@ -27,24 +29,9 @@ public class CustomerController {
 
     @GetMapping("/customers/{id}")
     Customer one(@PathVariable Long id) {
-
         return repository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException(id));
     }
-
-    //    @PutMapping("/customers/{id}")
-//    Customer replaceCustomer(@RequestBody Customer newCustomer, @PathVariable Long id) {
-//
-//        return repository.findById(id)
-//                .map(shippingList -> {
-//                    shippingList.setShippingItems(newCustomer.getShippingItems());
-//                    return repository.save(shippingList);
-//                })
-//                .orElseGet(() -> {
-//                    newCustomer.setId(id);
-//                    return repository.save(newCustomer);
-//                });
-//    }
 
     @PutMapping("/customers/{id}")
     Customer replaceCustomer(@RequestParam(value = "address", defaultValue = "") String newAddress, @PathVariable Long id) {
@@ -60,6 +47,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/customers/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteCustomer(@PathVariable Long id) {
         repository.deleteById(id);
     }
