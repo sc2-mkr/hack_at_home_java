@@ -1,11 +1,25 @@
 package com.sc2.hackathome.java.user;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private final long id;
-    private final String email;
-    private final String name;
-    private final String surname;
-    private final String password;
+
+    private String email;
+    private String name;
+    private String surname;
+    private String password;
+
+    public User(long id) {
+        this.id = id;
+    }
 
     public User(long id, String username, String name, String surname, String password) {
         this.id = id;

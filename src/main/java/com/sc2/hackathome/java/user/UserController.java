@@ -10,6 +10,6 @@ public class UserController {
 
     @GetMapping("/user/auth")
     public User getUser(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass) {
-        return new User();
+        return new User(1);
     }
 }
