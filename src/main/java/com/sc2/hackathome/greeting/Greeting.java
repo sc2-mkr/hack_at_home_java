@@ -1,4 +1,4 @@
-package com.sc2.hackathome.java.greeting;
+package com.sc2.hackathome.greeting;
 
 public class Greeting {
 
