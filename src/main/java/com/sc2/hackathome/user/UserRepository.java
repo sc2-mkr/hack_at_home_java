@@ -1,4 +1,4 @@
-package com.sc2.hackathome.java.user;
+package com.sc2.hackathome.user;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -8,5 +8,5 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
-    List<User> findByName(@Param("name") String name);
+    //List<User> findByName(@Param("name") String name);
 }

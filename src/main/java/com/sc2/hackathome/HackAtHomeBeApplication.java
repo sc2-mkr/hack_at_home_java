@@ -1,4 +1,4 @@
-package com.sc2.hackathome.java;
+package com.sc2.hackathome;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

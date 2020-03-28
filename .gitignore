@@ -70,5 +70,8 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
-# Android studio 3.1+ serialized cache file
+# Android studio 3.1+ serialized cache storage
 .idea/caches/build_file_checksums.ser
+
+#Project specific
+upload/

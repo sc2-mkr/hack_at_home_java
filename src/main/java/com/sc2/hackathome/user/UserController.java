@@ -1,4 +1,4 @@
-package com.sc2.hackathome.java.user;
+package com.sc2.hackathome.user;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +8,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    @GetMapping("/user/auth")
-    public User getUser(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass) {
-        return new User(1);
-    }
 }
