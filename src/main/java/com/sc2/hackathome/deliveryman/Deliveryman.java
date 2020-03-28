@@ -1,4 +1,4 @@
-package com.sc2.hackathome.java.deliveryman;
+package com.sc2.hackathome.deliveryman;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

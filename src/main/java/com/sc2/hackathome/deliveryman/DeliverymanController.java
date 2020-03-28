@@ -1,4 +1,4 @@
-package com.sc2.hackathome.java.deliveryman;
+package com.sc2.hackathome.deliveryman;
 
 
 import org.springframework.web.bind.annotation.GetMapping;

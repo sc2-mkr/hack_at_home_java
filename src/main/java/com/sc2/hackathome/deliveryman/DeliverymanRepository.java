@@ -1,4 +1,4 @@
-package com.sc2.hackathome.java.deliveryman;
+package com.sc2.hackathome.deliveryman;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
