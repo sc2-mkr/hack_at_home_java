@@ -13,9 +13,9 @@ public class DeliverymanController {
     @GetMapping("/deliveryman/auth")
     public Deliveryman getDeliveryman(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass) {
         //todo return if email and password exist in database
-        //repository.findByName(email);
+        repository.findByName(email);
 
-        return repository.save(getDeliveryman(email,pass));
+        return new Deliveryman(1);
     }
 
     @GetMapping("/deliveryman/signin")
