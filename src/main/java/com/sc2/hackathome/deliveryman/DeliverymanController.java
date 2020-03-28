@@ -1,22 +1,44 @@
 package com.sc2.hackathome.deliveryman;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.sc2.hackathome.exceptions.NotFoundException;
+import com.sc2.hackathome.shippinglist.ShippingList;
+import com.sc2.hackathome.shippinglist.ShippingListRepository;
+import org.springframework.data.domain.Example;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.constraints.Null;
 
 @RestController
 public class DeliverymanController {
 
-    private DeliverymanRepository repository;
+    private final DeliverymanRepository deliverymanRepository;
+    private final ShippingListRepository shippingListRepository;
+
+    public DeliverymanController(DeliverymanRepository deliverymanRepository, ShippingListRepository shippingListRepository) {
+        this.deliverymanRepository = deliverymanRepository;
+        this.shippingListRepository = shippingListRepository;
+    }
 
     @GetMapping("/deliveryman/auth")
     public Deliveryman getDeliveryman(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass) {
         //todo return if email and password exist in database
-        repository.findByName(email);
-
         return new Deliveryman(1);
     }
+
+    @PostMapping("/deliveryman/{id}/acceptshippinglist/")
+    void newShippingList(@RequestParam Long id, @RequestBody Long idList) {
+        ShippingList shippingList = shippingListRepository.findById(idList).orElseThrow(() -> new NotFoundException("deliveryman", id));
+        shippingList.setDeliveryManId(id);
+        shippingListRepository.save(shippingList);
+    }
+
+    @GetMapping("/deliveryman")
+    Deliveryman x( ) {
+        Deliveryman d = new Deliveryman(0,"mattia","mattia","mattia","mattia");
+        return deliverymanRepository.findAll(Example.of(d)).get(0);
+    }
+
 
     @GetMapping("/deliveryman/signin")
     public Deliveryman signinDeliveryman(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass,
