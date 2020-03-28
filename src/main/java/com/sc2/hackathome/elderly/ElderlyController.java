@@ -10,16 +10,16 @@ public class ElderlyController {
 
     private ElderlyRepository repository;
 
-    @GetMapping("/deliveryman/auth")
-    public Elderly getDeliveryman(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass) {
+    @GetMapping("/elderly/auth")
+    public Elderly getElderly(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass) {
         //todo return if email and password exist in database
         repository.findByName(email);
 
         return new Elderly(1);
     }
 
-    @GetMapping("/deliveryman/signin")
-    public Elderly signinDeliveryman(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass,
+    @GetMapping("/elderly/signin")
+    public Elderly signinElderly(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass,
                                      @RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
                                      @RequestParam(value = "id") Long id) {
         //todo check email not exist(or set email unique in database)
@@ -27,14 +27,23 @@ public class ElderlyController {
         return new Elderly(1);
     }
 
-    @GetMapping("/deliveryman/getallshippinglists")
+    @GetMapping("/elderly/addshippinglists")
+    public Elderly addShippingList(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass) {
+        //todo replace elderly with shipping list
+        //todo return if email and password exist in database
+        repository.findByName(email);
+
+        return new Elderly(1);
+    }
+
+    @GetMapping("/elderly/getallshippinglists")
     public Elderly getAllShippingLists(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass) {
         //todo auth user
         //todo return all shipping list foreigned key with deliveryman
         return new Elderly(1);//return shippinglist
     }
 
-    @GetMapping("/deliveryman/getfromidshippinglist")
+    @GetMapping("/elderly/getfromidshippinglist")
     public Elderly getFromIdShippingList(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass,
                                          @RequestParam(value = "id") Long id) {
         //todo auth user

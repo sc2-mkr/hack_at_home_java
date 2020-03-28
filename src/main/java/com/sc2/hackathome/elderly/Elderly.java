@@ -1,40 +1,32 @@
 package com.sc2.hackathome.elderly;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name="ELDERLY")
 public class Elderly {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final long id;
 
-    private String email;
     private String name;
     private String surname;
-    private String password;
+    private String address;
 
     public Elderly(long id) {
         this.id = id;
     }
 
-    public Elderly(long id, String username, String name, String surname, String password) {
+    public Elderly(long id, String name, String surname, String address) {
         this.id = id;
-        this.email = username;
         this.name = name;
         this.surname = surname;
-        this.password = password;
+        this.address = address;
     }
 
     public long getId() {
         return id;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public String getName() {
@@ -45,7 +37,7 @@ public class Elderly {
         return surname;
     }
 
-    public String getPassword() {
-        return password;
+    public String getAddress() {
+        return address;
     }
 }
