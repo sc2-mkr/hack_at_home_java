@@ -1,4 +1,4 @@
-package com.sc2.hackathome.java.user;
+package com.sc2.hackathome.java.deliveryman;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class User {
+public class deliveryman {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,11 +17,11 @@ public class User {
     private String surname;
     private String password;
 
-    public User(long id) {
+    public deliveryman(long id) {
         this.id = id;
     }
 
-    public User(long id, String username, String name, String surname, String password) {
+    public deliveryman(long id, String username, String name, String surname, String password) {
         this.id = id;
         this.email = username;
         this.name = name;
