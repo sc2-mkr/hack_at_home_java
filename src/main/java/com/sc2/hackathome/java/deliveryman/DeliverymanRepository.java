@@ -7,6 +7,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
-public interface deliverymanRepository extends PagingAndSortingRepository<deliveryman, Long> {
-    List<deliveryman> findByName(@Param("name") String name);
+public interface DeliverymanRepository extends PagingAndSortingRepository<Deliveryman, Long> {
+    List<Deliveryman> findByName(@Param("name") String name);
 }
