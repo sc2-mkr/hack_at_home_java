@@ -22,6 +22,7 @@ public class CustomerController {
     @PostMapping("/customers")
     @ResponseStatus(HttpStatus.CREATED)
     Customer newCustomer(@RequestBody Customer customer) {
+        //TODO implements authentication registration
         return repository.save(customer);
     }
 
