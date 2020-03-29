@@ -1,58 +1,40 @@
 package com.sc2.hackathome.user;
 
+import com.sc2.hackathome.security.Authority;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 @Entity
+@Table(name = "USER")
 public class User {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "USERNAME", length = 150, unique = true)
+    @NotNull
+    @Size(min = 4, max = 150)
+    private String username;
+
+    @Column(name = "PASSWORD", length = 100)
+    @NotNull
+    @Size(min = 4, max = 100)
+    private String password;
+
+    @Column(name = "ENABLED")
+    @NotNull
+    private Boolean enabled;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "USERS_AUTHORITIES",
+            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
+    private List<Authority> authorities;
 }
-//@Entity
-//public class User {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long id;
-//
-//    private String email;
-//    private String name;
-//    private String surname;
-//    private String password;
-//
-//    public User(long id) {
-//        this.id = id;
-//    }
-//
-//    public User(long id, String username, String name, String surname, String password) {
-//        this.id = id;
-//        this.email = username;
-//        this.name = name;
-//        this.surname = surname;
-//        this.password = password;
-//    }
-//
-//    public long getId() {
-//        return id;
-//    }
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public String getSurname() {
-//        return surname;
-//    }
-//
-//    public String getPassword() {
-//        return password;
-//    }

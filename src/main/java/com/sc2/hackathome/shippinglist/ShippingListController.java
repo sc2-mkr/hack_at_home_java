@@ -88,7 +88,7 @@ public class ShippingListController {
         return repository.save(shippingList);
     }
 
-    @GetMapping(value = "/shippinglists/{id}/img/{filename}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/shippinglists/{id}/img/{filename}")
     ResponseEntity<byte[]> serveShippingItemImage(@PathVariable Long id, @PathVariable String filename) {
         //TODO authorize
         Resource resource = storageService.loadAsResource(filename)
