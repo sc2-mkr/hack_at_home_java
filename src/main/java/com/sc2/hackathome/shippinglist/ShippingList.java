@@ -24,7 +24,22 @@ public class ShippingList {
     @Column(name = "DELIVERY_MAN_ID")
     private Long deliveryManId;
 
+     @Column(name = "ADDRESS")
+     @NotNull
+     private String address;
+     @Column(name = "CITY")
+     @NotNull
+     private String city;
+
+
     public ShippingList() {
         shippingItems = new ArrayList<>();
+    }
+
+    public ShippingList(long id, @NotNull long customerId, long deliveryManId) {
+        this.id = id;
+        this.shippingItems = new ArrayList<>();
+        this.customerId = customerId;
+        this.deliveryManId = deliveryManId;
     }
 }

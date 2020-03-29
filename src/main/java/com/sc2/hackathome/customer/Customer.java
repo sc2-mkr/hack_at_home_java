@@ -27,4 +27,8 @@ public class Customer {
     @Column(name = "PHONE_NUMBER")
     @NotNull
     private String phoneNumber;
+
+    @Column(name = "CITY")
+    @NotNull
+    private String city;
 }
