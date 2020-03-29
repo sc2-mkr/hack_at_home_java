@@ -1,6 +1,7 @@
 package com.sc2.hackathome.deliveryman;
 
 import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -10,28 +11,26 @@ import javax.validation.constraints.NotNull;
 public class Deliveryman {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="EMAIL")
+    @Column(name = "EMAIL")
     @NotNull
     private String email;
-    @Column(name="NAME")
+    @Column(name = "NAME")
     @NotNull
     private String name;
-    @Column(name="SURNAME")
+    @Column(name = "SURNAME")
     @NotNull
     private String surname;
-    @Column(name="PASSWORD")
+    @Column(name = "PASSWORD")
     @NotNull
     private String password;
 
+    public Deliveryman() {}
+
     public Deliveryman(long id) {
         this.id = id;
-    }
-
-    public Deliveryman() {
-
     }
 
     public Deliveryman(long id, String username, String name, String surname, String password) {
@@ -40,25 +39,5 @@ public class Deliveryman {
         this.name = name;
         this.surname = surname;
         this.password = password;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }
