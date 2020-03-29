@@ -5,9 +5,11 @@ import com.sc2.hackathome.exceptions.NotFoundException;
 import com.sc2.hackathome.shippinglist.ShippingList;
 import com.sc2.hackathome.shippinglist.ShippingListRepository;
 import org.springframework.data.domain.Example;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Null;
+import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -21,23 +23,23 @@ public class DeliverymanController {
 //        this.shippingListRepository = shippingListRepository;
     }
 
-    @GetMapping("/deliverymans")
+    @GetMapping(value = "/deliverymans", consumes = MediaType.APPLICATION_JSON_VALUE)
     List<Deliveryman> all() {
         return deliverymanRepository.findAll();
     }
 
-    @GetMapping("/deliverymans/{id}")
+    @GetMapping(value = "/deliverymans/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     Deliveryman one(@PathVariable Long id) {
         return deliverymanRepository.findById(id)
                 .orElseThrow(() -> new DeliverymanNotFoundException(id));
     }
 
-    @PostMapping("/deliverymans")
+    @PostMapping(value = "/deliverymans", consumes = MediaType.APPLICATION_JSON_VALUE)
     Deliveryman newDeliveryman(@RequestBody Deliveryman newDeliveryman) {
         return deliverymanRepository.save(newDeliveryman);
     }
 
-    @PutMapping("/deliverymans/{id}")
+    @PutMapping(value = "/deliverymans/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     Deliveryman updateDeliveryman(@RequestBody Deliveryman newDeliveryman, @PathVariable Long id) {
         return deliverymanRepository.findById(id)
                 .map(deliveryman -> {
@@ -53,7 +55,7 @@ public class DeliverymanController {
                 });
     }
 
-    @DeleteMapping("/deliverymans/{id}")
+    @DeleteMapping(value = "/deliverymans/{id}")
     void deleteDeliveryman(@PathVariable Long id) {
         deliverymanRepository.deleteById(id);
     }
