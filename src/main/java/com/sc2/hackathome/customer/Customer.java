@@ -1,5 +1,7 @@
 package com.sc2.hackathome.customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sc2.hackathome.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -31,4 +33,9 @@ public class Customer {
     @Column(name = "CITY")
     @NotNull
     private String city;
+
+    @OneToOne(targetEntity = User.class)
+    @MapsId
+    @JsonIgnore
+    private User user;
 }

@@ -1,5 +1,7 @@
 package com.sc2.hackathome.deliveryman;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sc2.hackathome.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Deliveryman {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "EMAIL")
@@ -26,6 +28,11 @@ public class Deliveryman {
     @Column(name = "PASSWORD")
     @NotNull
     private String password;
+
+    @OneToOne(targetEntity = User.class)
+    @MapsId
+    @JsonIgnore
+    private User user;
 
     public Deliveryman() {}
 
