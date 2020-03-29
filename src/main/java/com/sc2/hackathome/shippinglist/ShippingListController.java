@@ -16,6 +16,7 @@ import java.text.MessageFormat;
 import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class ShippingListController {
@@ -30,8 +31,14 @@ public class ShippingListController {
     }
 
     @GetMapping("/shippinglists")
-    List<ShippingList> all() {
-        return repository.findAll();
+    List<ShippingList> all(@RequestParam(name = "listItemsLimit", defaultValue = "-1", required = false) int listItemsLimit) {
+        List<ShippingList> list = repository.findAll();
+
+        if(listItemsLimit >= 0) list.forEach(shippingList ->
+                shippingList.setShippingItems(
+                        shippingList.getShippingItems().stream().limit(listItemsLimit).collect(Collectors.toList())));
+
+        return list;
     }
 
     @PostMapping("/shippinglists")
@@ -43,7 +50,6 @@ public class ShippingListController {
 
     @GetMapping("/shippinglists/{id}")
     ShippingList one(@PathVariable Long id) {
-
         return getShippingListOrFail(id);
     }
 
