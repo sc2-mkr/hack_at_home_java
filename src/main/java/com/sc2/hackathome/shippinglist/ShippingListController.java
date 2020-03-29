@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.text.MessageFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,10 +42,24 @@ public class ShippingListController {
         return list;
     }
 
+    @GetMapping("/shippinglists/city/{city}")
+    List<ShippingList> getShippingListsByCity(@PathVariable String city) {
+        List<ShippingList> list = new ArrayList<>();
+
+        repository.findByCity(city).forEach(shippingList -> {
+            if(shippingList.getDeliveryManId() == null) list.add(shippingList);
+        });
+
+        return list;
+    }
+
     @PostMapping("/shippinglists")
-    ShippingList newShippingList() {
+    ShippingList newShippingList(@RequestParam(name = "city", defaultValue = "", required = false) String city,
+                                 @RequestParam(name = "address", defaultValue = "", required = false) String address) {
         ShippingList shippingList = new ShippingList();
         shippingList.setCustomerId(userService.getCurrentUser().getId());
+        shippingList.setAddress(address);
+        shippingList.setCity(city);
         return repository.save(shippingList);
     }
 
