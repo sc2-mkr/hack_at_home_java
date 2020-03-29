@@ -15,4 +15,12 @@ public class ShippingItem {
     private String photoUrl;
     @Column(name = "TEXT")
     private String text;
+
+    public ShippingItem() {
+    }
+
+    public ShippingItem(long id, String text) {
+        this.id = id;
+        this.text = text;
+    }
 }

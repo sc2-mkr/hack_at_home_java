@@ -38,7 +38,7 @@ public class DeliverymanController {
         return shippingListRepository.findByDeliveryManId(id);
     }
 
-    @GetMapping(value = "/deliverymans/{id}/shippingLists/{shippingListId}/accept")
+    @PutMapping(value = "/deliverymans/{id}/shippingLists/{shippingListId}/accept")
     ShippingList acceptShippingLists(@PathVariable Long id, @PathVariable Long shippingListId) {
         ShippingList list = shippingListRepository.findById(shippingListId).orElseThrow(() -> new ShippingListNotFoundException(shippingListId));
         list.setDeliveryManId(id);
@@ -59,7 +59,6 @@ public class DeliverymanController {
                     deliveryman.setName(newDeliveryman.getName());
                     deliveryman.setSurname(newDeliveryman.getSurname());
                     deliveryman.setEmail(newDeliveryman.getEmail());
-                    deliveryman.setPassword(newDeliveryman.getPassword());
                     return deliverymanRepository.save(deliveryman);
                 })
                 .orElseGet(() -> {

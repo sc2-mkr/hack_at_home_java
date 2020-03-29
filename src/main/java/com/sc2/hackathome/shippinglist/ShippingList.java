@@ -42,4 +42,13 @@ public class ShippingList {
         this.customerId = customerId;
         this.deliveryManId = deliveryManId;
     }
+
+    public ShippingList(long id, List<ShippingItem> shippingItems, @NotNull long customerId, Long deliveryManId, @NotNull String address, @NotNull String city) {
+        this.id = id;
+        this.shippingItems = shippingItems;
+        this.customerId = customerId;
+        this.deliveryManId = deliveryManId;
+        this.address = address;
+        this.city = city;
+    }
 }

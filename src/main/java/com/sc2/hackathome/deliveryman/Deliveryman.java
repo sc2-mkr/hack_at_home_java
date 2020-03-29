@@ -23,9 +23,6 @@ public class Deliveryman {
     @Column(name = "SURNAME")
     @NotNull
     private String surname;
-    @Column(name = "PASSWORD")
-    @NotNull
-    private String password;
 
     public Deliveryman() {}
 
@@ -33,11 +30,10 @@ public class Deliveryman {
         this.id = id;
     }
 
-    public Deliveryman(long id, String username, String name, String surname, String password) {
+    public Deliveryman(long id, String username, String name, String surname) {
         this.id = id;
         this.email = username;
         this.name = name;
         this.surname = surname;
-        this.password = password;
     }
 }
