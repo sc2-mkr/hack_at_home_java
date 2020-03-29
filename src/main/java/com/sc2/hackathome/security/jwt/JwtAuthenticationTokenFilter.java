@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sc2.hackathome.security.SecurityConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,18 +25,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @Value("${jwt.header}")
-    private String tokenHeader;
-    @Value("${jwt.tokenprefix}")
-    private String tokenPrefix;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        String header = request.getHeader(this.tokenHeader);
+        String header = request.getHeader(SecurityConstant.TOKEN_HEADER);
 
         String authToken = null;
-        if (header != null && header.startsWith(tokenPrefix)) {
-            authToken = header.replace(tokenPrefix, "");
+        if (header != null && header.startsWith(SecurityConstant.TOKEN_PREFIX)) {
+            authToken = header.replace(SecurityConstant.TOKEN_PREFIX, "");
         }
 
         UserDetails userDetails = null;

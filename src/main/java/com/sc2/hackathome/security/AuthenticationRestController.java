@@ -1,9 +1,11 @@
 package com.sc2.hackathome.security;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.sc2.hackathome.configuration.SecurityOverrideCustomizer;
 import com.sc2.hackathome.security.jwt.JwtAuthenticationRequest;
 import com.sc2.hackathome.security.jwt.JwtAuthenticationResponse;
 import com.sc2.hackathome.security.jwt.JwtTokenUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class AuthenticationRestController {
 
-    @Value("${jwt.header}")
-    private String tokenHeader;
-    @Value("${jwt.tokenprefix}")
-    private String tokenPrefix;
-
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -40,6 +37,7 @@ public class AuthenticationRestController {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Tag(name = SecurityOverrideCustomizer.UNSECURED)
     @PostMapping("public/login")
     ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, Device device, HttpServletResponse response) throws AuthenticationException, JsonProcessingException {
 
@@ -54,20 +52,20 @@ public class AuthenticationRestController {
         // Generate Token
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails, device);
-        response.setHeader(tokenHeader, tokenPrefix + token);
+        response.setHeader(SecurityConstant.TOKEN_HEADER, SecurityConstant.TOKEN_PREFIX + token);
 
         return ResponseEntity.ok(new JwtAuthenticationResponse(userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
     @GetMapping(value = "refresh-token")
     ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request, HttpServletResponse response) {
-        String token = request.getHeader(tokenHeader);
+        String token = request.getHeader(SecurityConstant.TOKEN_HEADER);
         UserDetails userDetails =
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (jwtTokenUtil.canTokenBeRefreshed(token)) {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
-            response.setHeader(tokenHeader, refreshedToken);
+            response.setHeader(SecurityConstant.TOKEN_HEADER, refreshedToken);
 
             return ResponseEntity.ok(new JwtAuthenticationResponse(userDetails.getUsername(), userDetails.getAuthorities()));
         } else {
