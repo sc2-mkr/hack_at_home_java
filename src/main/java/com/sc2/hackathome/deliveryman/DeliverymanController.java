@@ -5,6 +5,7 @@ import com.sc2.hackathome.exceptions.NotFoundException;
 import com.sc2.hackathome.shippinglist.ShippingList;
 import com.sc2.hackathome.shippinglist.ShippingListRepository;
 import org.springframework.data.domain.Example;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,7 @@ public class DeliverymanController {
     }
 
     @PostMapping(value = "/deliverymans", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     Deliveryman newDeliveryman(@RequestBody Deliveryman newDeliveryman) {
         return deliverymanRepository.save(newDeliveryman);
     }
@@ -56,6 +58,7 @@ public class DeliverymanController {
     }
 
     @DeleteMapping(value = "/deliverymans/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteDeliveryman(@PathVariable Long id) {
         deliverymanRepository.deleteById(id);
     }
