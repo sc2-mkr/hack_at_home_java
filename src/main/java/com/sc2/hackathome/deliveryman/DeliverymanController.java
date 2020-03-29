@@ -8,60 +8,53 @@ import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Null;
+import java.util.List;
 
 @RestController
 public class DeliverymanController {
 
     private final DeliverymanRepository deliverymanRepository;
-    private final ShippingListRepository shippingListRepository;
+//    private final ShippingListRepository shippingListRepository;
 
-    public DeliverymanController(DeliverymanRepository deliverymanRepository, ShippingListRepository shippingListRepository) {
+    public DeliverymanController(DeliverymanRepository deliverymanRepository/*, ShippingListRepository shippingListRepository*/) {
         this.deliverymanRepository = deliverymanRepository;
-        this.shippingListRepository = shippingListRepository;
+//        this.shippingListRepository = shippingListRepository;
     }
 
-    @GetMapping("/deliveryman/auth")
-    public Deliveryman getDeliveryman(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass) {
-        //todo return if email and password exist in database
-        return new Deliveryman(1);
+    @GetMapping("/deliverymans")
+    List<Deliveryman> all() {
+        return deliverymanRepository.findAll();
     }
 
-    @PostMapping("/deliveryman/{id}/acceptshippinglist/")
-    void newShippingList(@RequestParam Long id, @RequestBody Long idList) {
-        ShippingList shippingList = shippingListRepository.findById(idList).orElseThrow(() -> new NotFoundException("deliveryman", id));
-        shippingList.setDeliveryManId(id);
-        shippingListRepository.save(shippingList);
+    @GetMapping("/deliverymans/{id}")
+    Deliveryman one(@PathVariable Long id) {
+        return deliverymanRepository.findById(id)
+                .orElseThrow(() -> new DeliverymanNotFoundException(id));
     }
 
-    @GetMapping("/deliveryman")
-    Deliveryman x( ) {
-        Deliveryman d = new Deliveryman(0,"mattia","mattia","mattia","mattia");
-        return deliverymanRepository.findAll(Example.of(d)).get(0);
+    @PostMapping("/deliverymans")
+    Deliveryman newDeliveryman(@RequestBody Deliveryman newDeliveryman) {
+        return deliverymanRepository.save(newDeliveryman);
     }
 
-
-    @GetMapping("/deliveryman/signin")
-    public Deliveryman signinDeliveryman(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass,
-                                         @RequestParam(value = "name") String name, @RequestParam(value = "surname") String surname,
-                                         @RequestParam(value = "id") Long id) {
-        //todo check email not exist(or set email unique in database)
-        //todo save data new deliveryman to database
-        return new Deliveryman(1);
+    @PutMapping("/deliverymans/{id}")
+    Deliveryman updateDeliveryman(@RequestBody Deliveryman newDeliveryman, @PathVariable Long id) {
+        return deliverymanRepository.findById(id)
+                .map(deliveryman -> {
+                    deliveryman.setName(newDeliveryman.getName());
+                    deliveryman.setSurname(newDeliveryman.getSurname());
+                    deliveryman.setEmail(newDeliveryman.getEmail());
+                    deliveryman.setPassword(newDeliveryman.getPassword());
+                    return deliverymanRepository.save(deliveryman);
+                })
+                .orElseGet(() -> {
+                    newDeliveryman.setId(id);
+                    return deliverymanRepository.save(newDeliveryman);
+                });
     }
 
-    @GetMapping("/deliveryman/getallshippinglists")
-    public Deliveryman getAllShippingLists(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass) {
-        //todo auth user
-        //todo return all shipping list foreigned key with deliveryman
-        return new Deliveryman(1);//return shippinglist
+    @DeleteMapping("/deliverymans/{id}")
+    void deleteDeliveryman(@PathVariable Long id) {
+        deliverymanRepository.deleteById(id);
     }
-
-    @GetMapping("/deliveryman/getfromidshippinglist")
-    public Deliveryman getFromIdShippingList(@RequestParam(value = "email") String email, @RequestParam(value = "pass") String pass,
-                                             @RequestParam(value = "id") Long id) {
-        //todo auth user
-        //todo return shipping list foreigned key with deliveryman by ID(shippinglist)
-        return new Deliveryman(1);//return shippinglist
-    }
-
 }
