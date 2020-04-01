@@ -4,7 +4,7 @@ jdk:
 
 before_deploy: "echo 'ready?'"
 deploy:
-  provider: elasticbeantalk
+  provider: elasticbeanstalk
   access_key_id:
     secure: "AKIAJ4XM5FO2LWR56NVA"
   secret_access_key:
