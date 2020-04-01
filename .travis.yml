@@ -13,3 +13,5 @@ deploy:
   app: "Hack at Home"
   env: "HackAtHome-env"
   bucket_name: "elasticbeanstalk-eu-west-3-161924597421"
+  on:
+    branch: aws-java8
