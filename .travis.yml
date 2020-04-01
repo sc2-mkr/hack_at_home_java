@@ -5,7 +5,7 @@ jdk:
 before_deploy: "echo 'ready?'"
 deploy:
   provider: elasticbeanstalk
-  region: "eu-west-3c"
+  region: "eu-west-3"
   app: "Hack at Home"
   env: "HackAtHome-env"
   bucket: "elasticbeanstalk-eu-west-3-161924597421"
