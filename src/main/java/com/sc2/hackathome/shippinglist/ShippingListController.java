@@ -53,13 +53,13 @@ public class ShippingListController {
         s.setCustomerId(userService.getCurrentUser().getId());
         return repository.save(s);
     }
-  
+
     @GetMapping("/shippinglists/city/{city}")
     List<ShippingList> getShippingListsByCity(@PathVariable String city) {
         List<ShippingList> list = new ArrayList<>();
 
         repository.findByCity(city).forEach(shippingList -> {
-            if(shippingList.getDeliveryManId() == null) list.add(shippingList);
+            if (shippingList.getDeliveryManId() == null) list.add(shippingList);
         });
 
         return list;

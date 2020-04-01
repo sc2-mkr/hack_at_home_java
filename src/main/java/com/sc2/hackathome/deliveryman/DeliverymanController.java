@@ -4,7 +4,6 @@ package com.sc2.hackathome.deliveryman;
 import com.sc2.hackathome.shippinglist.ShippingList;
 import com.sc2.hackathome.shippinglist.ShippingListNotFoundException;
 import com.sc2.hackathome.shippinglist.ShippingListRepository;
-import com.sc2.hackathome.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

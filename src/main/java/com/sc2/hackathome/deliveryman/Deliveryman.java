@@ -24,7 +24,8 @@ public class Deliveryman {
     @NotNull
     private String surname;
 
-    public Deliveryman() {}
+    public Deliveryman() {
+    }
 
     public Deliveryman(long id) {
         this.id = id;

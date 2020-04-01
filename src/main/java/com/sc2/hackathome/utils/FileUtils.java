@@ -1,9 +1,8 @@
 package com.sc2.hackathome.utils;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
 
-import javax.activation.MimetypesFileTypeMap;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,7 +23,7 @@ public final class FileUtils {
 
     public static byte[] toByteArray(Resource resource) {
         try {
-            return resource.getInputStream().readAllBytes();
+            return IOUtils.toByteArray(resource.getInputStream());
         } catch (IOException e) {
             throw new RuntimeException("Could not read resource.", e);
         }

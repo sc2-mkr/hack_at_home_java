@@ -34,9 +34,9 @@ class LoadDatabase {
             List<ShippingItem> list3 = new ArrayList<>();
             list3.add(new ShippingItem(1, "300g di macinato"));
 
-            shippingListRepository.save(new ShippingList(1, list1, 2,null,"Via Maria 13", "Lecce"));
-            shippingListRepository.save(new ShippingList(1, list2, 1,null,"Via Piemonte 43", "Matino"));
-            shippingListRepository.save(new ShippingList(1, list3, 1,null,"Via Roma 88", "Collepasso"));
+            shippingListRepository.save(new ShippingList(1, list1, 2, null, "Via Maria 13", "Lecce"));
+            shippingListRepository.save(new ShippingList(1, list2, 1, null, "Via Piemonte 43", "Matino"));
+            shippingListRepository.save(new ShippingList(1, list3, 1, null, "Via Roma 88", "Collepasso"));
 
         };
     }
