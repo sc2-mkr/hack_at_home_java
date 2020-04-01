@@ -5,13 +5,9 @@ jdk:
 before_deploy: "echo 'ready?'"
 deploy:
   provider: elasticbeanstalk
-  access_key_id:
-    secure: "AKIAJ4XM5FO2LWR56NVA"
-  secret_access_key:
-    secure: "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"
   region: "eu-west-3c"
   app: "Hack at Home"
   env: "HackAtHome-env"
-  bucket_name: "elasticbeanstalk-eu-west-3-161924597421"
+  bucket: "elasticbeanstalk-eu-west-3-161924597421"
   on:
     branch: aws-java8
